@@ -27,7 +27,12 @@
         <button id="start-game" @click="startGame">START NEW GAME</button>
         <div class="small-12 columns">
           <div class="small-12 columns custom-align">
-            <div class="pokemon" v-for="pokemon in pokemons" :key="pokemon.id">
+            <div
+              class="pokemon"
+              v-for="pokemon in pokemons"
+              :key="pokemon.id"
+              @click="getPokemon(pokemon.id, pokemon.name)"
+            >
               <h1>
                 <u>{{pokemon.name}}</u>
               </h1>
@@ -75,19 +80,25 @@ export default {
           id: 1,
           name: "rattata",
           img:
-            "https://www.pngix.com/pngfile/middle/654-6547785_rattata-3d-png-pokemon-transparent-png.png"
+            "https://www.pngix.com/pngfile/middle/654-6547785_rattata-3d-png-pokemon-transparent-png.png",
+          pv: 30,
+          attack: 56
         },
         {
           id: 2,
           name: "pikachu",
           img:
-            "https://www.pngix.com/pngfile/middle/654-6547511_log-in-register-pokemon-detective-pikachu-png-transparent.png"
+            "https://www.pngix.com/pngfile/middle/654-6547511_log-in-register-pokemon-detective-pikachu-png-transparent.png",
+          pv: 35,
+          attack: 55
         },
         {
           id: 3,
           name: "zapdos",
           img:
-            "https://www.clipartmax.com/png/middle/77-773492_zapdos-by-blui129-zapdos-pokemon-3d-png.png"
+            "https://www.clipartmax.com/png/middle/77-773492_zapdos-by-blui129-zapdos-pokemon-3d-png.png",
+          pv: 90,
+          attack: 90
         }
       ]
     };
@@ -142,6 +153,11 @@ export default {
       let health = 10;
       this.setHealth -= 1;
       if (this.setHealth >= 0) {
+        if (this.attackSp === 0) {
+          this.attackSp = this.attackSp;
+        } else {
+          this.attackSp--;
+        }
         this.monsterAttacks();
         if (this.playerHealth <= 90) {
           this.playerHealth += health;
@@ -196,6 +212,9 @@ export default {
         return true;
       }
       return false;
+    },
+    getPokemon(id, name) {
+      console.log("id: " + id + " name: " + name);
     }
   }
 };
